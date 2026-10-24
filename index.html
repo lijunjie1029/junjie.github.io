@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============ 需要修改：页面标题 / 描述 / 关键词 ============ -->
+<title>张三 | Zhang San — 个人学术主页</title>
+<meta name="description" content="张三，某某大学计算机科学博士研究生，研究方向：机器学习、计算机视觉、多模态学习。">
+<meta name="author" content="张三">
+<meta name="keywords" content="张三, Zhang San, 机器学习, 计算机视觉, 多模态, 学术主页">
+
+<!-- 社交卡片（可选） -->
+<meta property="og:title" content="张三 | Zhang San">
+<meta property="og:description" content="某某大学计算机科学博士研究生 · 机器学习与计算机视觉">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+
+<style>
+/* =========================================================
+   设计变量：改这里就能换配色
+   ========================================================= */
+:root{
+  --bg:        #ffffff;
+  --surface:   #f7f8fa;
+  --surface-2: #eef1f6;
+  --text:      #1a1d21;
+  --muted:     #667085;
+  --accent:    #2563eb;
+  --accent-2:  #1d4ed8;
+  --accent-bg: #eff4ff;
+  --border:    #e5e7eb;
+  --shadow:    0 1px 2px rgba(16,24,40,.04), 0 8px 24px rgba(16,24,40,.05);
+
+  --radius: 14px;
+  --maxw: 920px;
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC",
+          Helvetica, Arial, sans-serif;
+  --mono: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* 深色主题 */
+html[data-theme="dark"]{
+  --bg:        #0e1116;
+  --surface:   #161a21;
+  --surface-2: #1d222b;
+  --text:      #e6e9ee;
+  --muted:     #9aa4b2;
+  --accent:    #7aa9ff;
+  --accent-2:  #a6c4ff;
+  --accent-bg: #16243d;
+  --border:    #262c37;
+  --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   基础样式
+   ========================================================= */
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; scroll-padding-top:80px; }
+
+body{
+  margin:0;
+  font-family:var(--font);
+  font-size:16px;
+  line-height:1.75;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+a{ color:var(--accent); text-decoration:none; }
+a:hover{ color:var(--accent-2); text-decoration:underline; text-underline-offset:3px; }
+
+h1,h2,h3,h4{ line-height:1.3; font-weight:700; letter-spacing:-.01em; }
+
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+
+/* =========================================================
+   顶部导航
+   ========================================================= */
+.nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:saturate(180%) blur(12px);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:var(--maxw); margin:0 auto; padding:0 22px;
+  height:58px; display:flex; align-items:center; gap:18px;
+}
+.nav-brand{ font-weight:700; letter-spacing:.02em; white-space:nowrap; }
+.nav-brand span{ color:var(--muted); font-weight:500; font-size:.85em; margin-left:6px; }
+.nav-links{ display:flex; gap:4px; margin-left:auto; overflow-x:auto; scrollbar-width:none; }
+.nav-links::-webkit-scrollbar{ display:none; }
+.nav-links a{
+  padding:6px 11px; border-radius:9px; font-size:14.5px;
+  color:var(--muted); white-space:nowrap; transition:.18s;
+}
+.nav-links a:hover{ color:var(--text); background:var(--surface-2); text-decoration:none; }
+.nav-links a.active{ color:var(--accent); background:var(--accent-bg); font-weight:600; }
+
+.theme-btn{
+  flex:none; width:36px; height:36px; border-radius:10px;
+  border:1px solid var(--border); background:var(--surface);
+  color:var(--text); cursor:pointer; font-size:16px; line-height:1;
+  display:grid; place-items:center; transition:.18s;
+}
+.theme-btn:hover{ background:var(--surface-2); transform:translateY(-1px); }
+
+/* =========================================================
+   Hero / 自我介绍
+   ========================================================= */
+.hero{ padding:56px 0 8px; }
+.hero-card{
+  display:flex; gap:30px; align-items:flex-start;
+  padding:32px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+.avatar{
+  flex:none;
+  width:118px; height:118px; border-radius:50%;
+  object-fit:cover;
+  display:grid; place-items:center;
+  font-size:44px; font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#4f8cff,#7c5cff 55%,#c05cff);
+  box-shadow:0 6px 20px rgba(79,140,255,.32);
+  user-select:none;
+}
+
+.hero-text{ min-width:0; }
+.hero-text h1{
+  margin:0 0 4px; font-size:2rem; letter-spacing:-.02em;
+}
+.hero-text h1 .en{
+  font-size:.58em; font-weight:500; color:var(--muted);
+  letter-spacing:0; margin-left:8px;
+}
+.role{ margin:0 0 12px; color:var(--accent); font-weight:600; font-size:.98rem; }
+.bio{ margin:0 0 16px; color:var(--muted); font-size:.95rem; }
+.bio strong{ color:var(--text); }
+
+/* 链接按钮组 */
+.links{ list-style:none; display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; }
+.links a{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 13px; border-radius:999px;
+  font-size:13.5px; font-weight:500;
+  background:var(--bg); color:var(--text);
+  border:1px solid var(--border);
+  transition:.18s;
+}
+.links a:hover{
+  color:var(--accent); border-color:var(--accent);
+  background:var(--accent-bg); text-decoration:none; transform:translateY(-1px);
+}
+.links svg{ width:15px; height:15px; flex:none; }
+
+/* =========================================================
+   通用 Section
+   ========================================================= */
+.section{ padding:52px 0 0; }
+.section-title{
+  display:flex; align-items:baseline; gap:12px;
+  margin:0 0 22px; font-size:1.28rem;
+}
+.section-title::before{
+  content:""; width:5px; height:20px; border-radius:3px;
+  background:linear-gradient(180deg,var(--accent),#7c5cff);
+  transform:translateY(2px);
+}
+.section-title small{ font-size:.72rem; font-weight:500; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+
+/* =========================================================
+   教育经历 / 时间线
+   ========================================================= */
+.edu-item{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:20px;
+  padding:16px 0;
+  border-bottom:1px dashed var(--border);
+}
+.edu-item:last-child{ border-bottom:none; }
+.edu-period{ color:var(--muted); font-size:.88rem; font-variant-numeric:tabular-nums; padding-top:2px; }
+.edu-body h4{ margin:0 0 3px; font-size:1.02rem; }
+.edu-body .school{ color:var(--accent); font-weight:600; }
+.edu-body .meta{ margin:2px 0 0; font-size:.88rem; color:var(--muted); }
+
+/* =========================================================
+   论文列表
+   ========================================================= */
+.pub-year{
+  display:flex; align-items:center; gap:12px;
+  margin:26px 0 12px; font-size:.95rem; font-weight:700; color:var(--muted);
+  letter-spacing:.04em;
+}
+.pub-year::after{ content:""; flex:1; height:1px; background:var(--border); }
+.pub-year:first-of-type{ margin-top:6px; }
+
+.pub-list{ list-style:none; margin:0; padding:0; }
+
+.pub{
+  position:relative;
+  padding:16px 20px 16px 22px;
+  margin-bottom:10px;
+  border-radius:var(--radius);
+  border:1px solid transparent;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.pub::before{
+  content:""; position:absolute; left:0; top:16px; bottom:16px;
+  width:3px; border-radius:3px;
+  background:var(--border);
+  transition:background .2s;
+}
+.pub:hover{ background:var(--surface); border-color:var(--border); }
+.pub:hover::before{ background:var(--accent); }
+
+.pub-title{ font-weight:600; font-size:1.02rem; margin-bottom:5px; line-height:1.5; }
+.pub-authors{ font-size:.9rem; color:var(--muted); margin-bottom:4px; }
+.pub-authors b{ color:var(--text); font-weight:700; text-decoration:underline; text-decoration-color:var(--accent); text-underline-offset:3px; }
+.pub-venue{ font-size:.9rem; color:var(--muted); }
+.pub-venue em{ color:var(--text); font-style:italic; font-weight:600; }
+
+/* 标签：CCF-A / 中科院一区 / Oral 等 */
+.tag{
+  display:inline-block; margin-left:6px; padding:1px 8px;
+  font-size:11.5px; font-weight:700; letter-spacing:.02em;
+  color:var(--accent); background:var(--accent-bg);
+  border-radius:6px; vertical-align:1.5px;
+}
+.tag.gold{ color:#a16207; background:#fef3c7; }
+html[data-theme="dark"] .tag.gold{ color:#fcd34d; background:#3b2f0d; }
+
+/* 论文链接 */
+.pub-links{ display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+.pub-links a{
+  font-size:12.5px; font-weight:600; padding:2px 10px;
+  border-radius:999px; border:1px solid var(--border);
+  color:var(--muted); background:var(--bg); transition:.18s;
+}
+.pub-links a:hover{ color:#fff; background:var(--accent); border-color:var(--accent); text-decoration:none; }
+
+/* =========================================================
+   研究方向卡片
+   ========================================================= */
+.grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+.card{
+  padding:18px 20px; border-radius:var(--radius);
+  background:var(--surface); border:1px solid var(--border);
+  transition:.2s;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:var(--shadow); border-color:var(--accent); }
+.card h4{ margin:0 0 6px; font-size:.98rem; }
+.card p{ margin:0; font-size:.88rem; color:var(--muted); line-height:1.65; }
+
+/* =========================================================
+   荣誉 / 列表
+   ========================================================= */
+.plain-list{ list-style:none; margin:0; padding:0; }
+.plain-list li{
+  display:grid; grid-template-columns:84px 1fr; gap:16px;
+  padding:9px 0; font-size:.94rem; border-bottom:1px dashed var(--border);
+}
+.plain-list li:last-child{ border-bottom:none; }
+.plain-list .yr{ color:var(--muted); font-variant-numeric:tabular-nums; font-size:.88rem; }
+
+/* =========================================================
+   页脚
+   ========================================================= */
+footer{
+  margin-top:64px; padding:28px 0 40px;
+  border-top:1px solid var(--border);
+  font-size:.85rem; color:var(--muted); text-align:center;
+}
+footer a{ color:var(--muted); }
+footer .dot{ margin:0 8px; opacity:.5; }
+
+/* =========================================================
+   响应式
+   ========================================================= */
+@media (max-width:720px){
+  .hero{ padding-top:34px; }
+  .hero-card{ flex-direction:column; align-items:center; text-align:center; padding:26px 20px; gap:20px; }
+  .hero-text h1{ font-size:1.6rem; }
+  .links{ justify-content:center; }
+  .edu-item{ grid-template-columns:1fr; gap:4px; }
+  .edu-period{ padding-top:0; }
+  .plain-list li{ grid-template-columns:1fr; gap:0; }
+  .nav-brand span{ display:none; }
+  .section{ padding-top:40px; }
+}
+
+/* 打印 / 导出 PDF */
+@media print{
+  .nav, .theme-btn, .pub-links{ display:none !important; }
+  body{ font-size:12pt; }
+  .hero-card, .card, .pub{ box-shadow:none; border-color:#ddd; }
+  .section{ padding-top:24px; page-break-inside:avoid; }
+  a{ color:#000; text-decoration:none; }
+}
+
+/* 无障碍：减少动画 */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==================== 导航栏 ==================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">张三 <span>Zhang San</span></div>
+    <div class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#education">教育</a>
+      <a href="#publications">论文</a>
+      <a href="#research">研究</a>
+      <a href="#honors">荣誉</a>
+      <a href="#contact">联系</a>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="切换深色模式" title="切换深色模式">🌙</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ==================== Hero：自我介绍 ==================== -->
+  <header class="hero" id="about">
+    <div class="hero-card">
+
+      <!-- 有照片就取消下面注释，并删掉 .avatar 那个 div -->
+      <!-- <img class="avatar" src="avatar.jpg" alt="张三"> -->
+      <div class="avatar" aria-hidden="true">张</div>
+
+      <div class="hero-text">
+        <h1>张三 <span class="en">Zhang San</span></h1>
+        <p class="role">计算机科学博士研究生 · 某某大学 智能计算实验室</p>
+
+        <p class="bio">
+          我目前是<strong>某某大学</strong>计算机科学与技术专业的博士研究生（2022 年入学），
+          导师是 <a href="#">李四 教授</a>。此前我在<strong>某某大学</strong>获得工学学士学位。
+          我的研究兴趣集中在 <strong>机器学习、计算机视觉与多模态学习</strong>，
+          尤其关注视觉-语言模型的高效训练与可信推理。
+          研究成果发表于 <em>NeurIPS</em>、<em>CVPR</em>、<em>ICCV</em>、<em>TPAMI</em> 等会议与期刊。
+        </p>
+
+        <ul class="links">
+          <li><a href="mailto:zhangsan@example.edu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            Email
+          </a></li>
+          <li><a href="https://scholar.google.com/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm0 13L5 12.2V16c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8L12 16z"/></svg>
+            Google Scholar
+          </a></li>
+          <li><a href="https://github.com/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17.7 4.6 18.7 5 18.7 5c.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a></li>
+          <li><a href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h2"/></svg>
+            CV (PDF)
+          </a></li>
+          <li><a href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            ORCID
+          </a></li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== 教育经历 ==================== -->
+  <section class="section" id="education">
+    <h2 class="section-title">教育经历 <small>Education</small></h2>
+
+    <div class="edu-item">
+      <div class="edu-period">2022.09 – 至今</div>
+      <div class="edu-body">
+        <h4>博士研究生 · <span class="school">某某大学</span> · 计算机科学与技术</h4>
+        <p class="meta">导师：李四 教授 ｜ 研究方向：多模态学习、视觉-语言模型</p>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-period">2018.09 – 2022.06</div>
+      <div class="edu-body">
+        <h4>工学学士 · <span class="school">某某大学</span> · 软件工程</h4>
+        <p class="meta">GPA：3.9/4.0（专业前 2%） ｜ 优秀毕业论文 ｜ 国家奖学金</p>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-period">2021.01 – 2021.06</div>
+      <div class="edu-body">
+        <h4>交换学生 · <span class="school">某某海外大学</span> · 计算机科学系</h4>
+        <p class="meta">交换项目：本科生海外交流计划</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 论文发表 ==================== -->
+  <section class="section" id="publications">
+    <h2 class="section-title">论文发表 <small>Publications</small></h2>
+    <p style="color:var(--muted);font-size:.9rem;margin:-12px 0 6px;">
+      带 <b style="color:var(--text)">下划线</b> 的为本人（<b style="color:var(--text)">张三</b>）。完整列表见
+      <a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>。
+    </p>
+
+    <!-- ---------- 2025 ---------- -->
+    <div class="pub-year">2025</div>
+    <ul class="pub-list">
+
+      <li class="pub">
+        <div class="pub-title">Towards Efficient Multimodal Reasoning: A Unified Framework for Vision-Language Pre-training</div>
+        <div class="pub-authors"><b>张三</b>, 王五, 李四</div>
+        <div class="pub-venue"><em>CVPR</em>, 2025 <span class="tag">CCF-A</span> <span class="tag gold">Oral</span></div>
+        <div class="pub-links">
+          <a href="#" target="_blank" rel="noopener">PDF</a>
+          <a href="#" target="_blank" rel="noopener">arXiv</a>
+          <a href="#" target="_blank" rel="noopener">Code</a>
+          <a href="#" target="_blank" rel="noopener">BibTeX</a>
+        </div>
+      </li>
+
+      <li class="pub">
+        <div class="pub-title">Rethinking Cross-Modal Alignment for Low-Resource Vision-Language Tasks</div>
+        <div class="pub-authors">王五, <b>张三</b>, 赵六, 李四</div>
+        <div class="pub-venue"><em>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</em>, 2025 <span class="tag">CCF-A</span> <span class="tag">中科院一区</span></div>
+        <div class="pub-links">
+          <a href="#" target="_blank" rel="noopener">PDF</a>
+          <a href="#" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- ---------- 2024 ---------- -->
+    <div class="pub-year">2024</div>
+    <ul class="pub-list">
+
+      <li class="pub">
+        <div class="pub-title">Adaptive Token Pruning for Efficient Large Vision-Language Models</div>
+        <div class="pub-authors"><b>张三</b>, 赵六, 李四</div>
+        <div class="pub-venue"><em>NeurIPS</em>, 2024 <span class="tag">CCF-A</span></div>
+        <div class="pub-links">
+          <a href="#" target="_blank" rel="noopener">PDF</a>
+          <a href="#" target="_blank" rel="noopener">arXiv</a>
+          <a href="#" target="_blank" rel="noopener">Code</a>
+        </div>
+      </li>
+
+      <li class="pub">
+        <div class="pub-title">Robust Visual Question Answering under Distribution Shift</div>
+        <div class="pub-authors">赵六, <b>张三</b>, 王五</div>
+        <div class="pub-venue"><em>ECCV</em>, 2024 <span class="tag">CCF-B</span></div>
+        <div class="pub-links">
+          <a href="#" target="_blank" rel="noopener">PDF</a>
+          <a href="#" target="_blank" rel="noopener">Poster</a>
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- ---------- 2023 ---------- -->
+    <div class="pub-year">2023</div>
+    <ul class="pub-list">
+
+      <li class="pub">
+        <div class="pub-title">Self-Supervised Representation Learning with Contrastive Consistency Regularization</div>
+        <div class="pub-authors"><b>张三</b>, 李四</div>
+        <div class="pub-venue"><em>ICCV</em>, 2023 <span class="tag">CCF-A</span></div>
+        <div class="pub-links">
+          <a href="#" target="_blank" rel="noopener">PDF</a>
+          <a href="#" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </li>
+
+      <li class="pub">
+        <div class="pub-title">A Survey on Parameter-Efficient Fine-Tuning for Vision Models</div>
+        <div class="pub-authors"><b>张三</b>, 王五, 赵六, 李四</div>
+        <div class="pub-venue"><em>arXiv preprint</em>, 2023</div>
+        <div class="pub-links">
+          <a href="#" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- ==================== 研究方向 ==================== -->
+  <section class="section" id="research">
+    <h2 class="section-title">研究方向 <small>Research</small></h2>
+    <div class="grid">
+      <div class="card">
+        <h4>多模态学习</h4>
+        <p>视觉-语言联合表征学习、跨模态对齐与检索，关注模型在开放场景下的泛化能力。</p>
+      </div>
+      <div class="card">
+        <h4>高效深度学习</h4>
+        <p>参数高效微调（PEFT）、Token 剪枝与模型压缩，降低大模型训练与推理成本。</p>
+      </div>
+      <div class="card">
+        <h4>可信人工智能</h4>
+        <p>分布偏移下的鲁棒性、模型可解释性与不确定性估计。</p>
+      </div>
+      <div class="card">
+        <h4>自监督学习</h4>
+        <p>对比学习框架设计、表征一致性约束及其在下游任务中的迁移。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 荣誉与经历 ==================== -->
+  <section class="section" id="honors">
+    <h2 class="section-title">荣誉与学术服务 <small>Honors &amp; Service</small></h2>
+
+    <ul class="plain-list">
+      <li><span class="yr">2025</span><span>国家奖学金（博士研究生）</span></li>
+      <li><span class="yr">2024</span><span>某某大学优秀研究生标兵</span></li>
+      <li><span class="yr">2024</span><span>NeurIPS 审稿人（Reviewer）</span></li>
+      <li><span class="yr">2023</span><span>CVPR / ICCV 审稿人（Reviewer）</span></li>
+      <li><span class="yr">2022</span><span>某某大学优秀毕业生</span></li>
+      <li><span class="yr">2021</span><span>全国大学生数学建模竞赛 国家一等奖</span></li>
+    </ul>
+  </section>
+
+  <!-- ==================== 联系方式 ==================== -->
+  <section class="section" id="contact">
+    <h2 class="section-title">联系方式 <small>Contact</small></h2>
+    <p style="margin-top:-8px;">
+      📧 邮箱：<a href="mailto:zhangsan@example.edu">zhangsan@example.edu</a><br>
+      🏢 地址：某某省某某市某某路 123 号 某某大学 计算机学院 智能计算实验室 A301<br>
+      💬 欢迎在邮件中讨论合作、学术交流或招生相关事宜。
+    </p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>
+    © <span id="year">2025</span> 张三 · Zhang San
+    <span class="dot">·</span> Built with ❤️ on GitHub Pages
+    <span class="dot">·</span>
+    <a href="https://github.com/" target="_blank" rel="noopener">源码</a>
+  </p>
+</footer>
+
+<script>
+/* =========================================================
+   1) 深色 / 浅色主题切换（记忆用户选择）
+   ========================================================= */
+(function () {
+  const root = document.documentElement;
+  const btn  = document.getElementById('themeBtn');
+  const KEY  = 'theme-preference';
+
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function apply(theme) {
+    root.dataset.theme = theme;
+    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', theme === 'dark' ? '切换浅色模式' : '切换深色模式');
+  }
+
+  const saved = localStorage.getItem(KEY);
+  apply(saved || (systemDark.matches ? 'dark' : 'light'));
+
+  btn.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    apply(next);
+    localStorage.setItem(KEY, next);
+  });
+
+  // 未手动设置时跟随系统变化
+  systemDark.addEventListener('change', e => {
+    if (!localStorage.getItem(KEY)) apply(e.matches ? 'dark' : 'light');
+  });
+})();
+
+/* =========================================================
+   2) 导航高亮（滚动到哪个 section 就点亮哪个）
+   ========================================================= */
+(function () {
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const map   = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(a => a.classList.remove('active'));
+      const a = map.get(entry.target.id);
+      if (a) a.classList.add('active');
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+  map.forEach((_, id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+
+/* =========================================================
+   3) 页脚年份自动更新
+   ========================================================= */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
